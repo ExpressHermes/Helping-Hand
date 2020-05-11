@@ -19,7 +19,7 @@ bbox: [80.1158526594972, 26.18205430711, 80.5538117327514, 26.6400085677318], //
 proximity: {
   longitude: 80.33111,
   latitude: 26.4725
-} // Coordinates of UC Berkeley
+} // Coordinates of Kanpur
 });
 
 // Add the geocoder to the map

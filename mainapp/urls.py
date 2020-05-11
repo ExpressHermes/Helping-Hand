@@ -5,5 +5,5 @@ app_name = 'mainapp'
 
 urlpatterns = [
     path('', views.home_page, name='home_page'),
-    path('map/', views.map, name='map'),
+    path('create_event/', views.create_event, name='create_event'),
 ]

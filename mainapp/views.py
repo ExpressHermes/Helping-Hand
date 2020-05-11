@@ -1,18 +1,26 @@
 from django.shortcuts import render,redirect
-from mainapp.models import helping_hand
+from mainapp.models import Events
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 def home_page(request):
     return render(request, 'mainapp/home.html')
 
-
-def map(request):
+@login_required
+def create_event(request):
     if request.method == 'POST':
-        lon = request.POST.get('lon')
+        event_organizer = request.POST.get('event_organizer')
+        event_name = request.POST.get('event_name')
+        event_date = request.POST.get('event_date')
+        description = request.POST.get('description')
+        event_type = request.POST.get('event_type')
+        place_name = request.POST.get('place_name')
         lat = request.POST.get('lat')
-        print(f'lon: {lon}, lat: {lat}')
-        new_req=helping_hand(event_name=request.POST['eventOrganizer'],date=request.POST['eventDate'],
-        place_name=request.POST['placeName'],longt=request.POST['lon'],lati=request.POST['lat'])
-        new_req.save()
-        return redirect('mainapp:map')
-    return render(request, 'mainapp/map.html')
+        lon = request.POST.get('lon')
+        event = Events(event_organizer=event_organizer, event_name=event_name,
+                       event_date=event_date, description=description,
+                       place_name=place_name, event_type=event_type,
+                       lat=lat, lon=lon)
+        event.save()
+        return render(request, 'mainapp/home.html', {'message': 'Event Created Successfully'})
+    return render(request, 'mainapp/create_event.html')

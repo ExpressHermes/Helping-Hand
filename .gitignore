@@ -1,5 +1,3 @@
-'HelpingHand/__pycache__'
-'mainapp/__pycache__'
-'register/__pycache__'
-'register/migrations'
-'mainapp/migrations'
+'**/**/__pycache__'
+'**/**/migrations/'
+'db.sqlite3'

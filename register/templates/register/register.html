@@ -1,4 +1,5 @@
 {% extends 'register/base.html' %}
+{% load static %}
 {% block content %}
 <form method="POST">
   {% if user_form.errors %}
@@ -8,18 +9,16 @@
   {% endif %}
   {% csrf_token %}
   {% for field in user_form %}
-    <div class="row form-group">
-      <div class="col-2">
+    <div class="row form-group justify-content-center">
+      <div class="col-12 col-md-4">
         <label for="email"> {{ field.label }} </label>
-      </div>
-      <div class="col-4">
         {{ field }}
       </div>
     </div>
   {% endfor %}
-  <div class="row">
-    <div class="col-5">
-      <input type="submit" class="btn btn-primary" name="submit" value="Register">
+  <div class="row form-group justify-content-center">
+    <div class="col-12 col-md-4">
+      <input type="submit" class="btn btn-primary btn-block" name="submit" value="Register">
     </div>
   </div>
 </form>
