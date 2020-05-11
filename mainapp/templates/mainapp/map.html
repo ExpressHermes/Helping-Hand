@@ -6,11 +6,11 @@
 <div class="my-5 container border">
 	<div class="row">
 		<div class="p-4 col-12 col-md-6">
-			<form method="post">
+			<form method="post" action="{% url 'mainapp:map' %}">
 				{% csrf_token %}
 				<div class="form-group">
 					<label for="eventName"> Event Organizer </label>
-					<input type="text" class="form-control" name="eventOrganizer" id="eventName">
+			    <input type="text" class="form-control" name="eventOrganizer" id="eventName">
 				</div>
 				<div class="form-group">
 					<label for="eventDate"> Event Date </label>
