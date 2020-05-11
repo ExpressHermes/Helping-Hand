@@ -1,0 +1,49 @@
+{% extends 'mainapp/index.html' %}
+{% load static %}
+{% block content %}
+{% include 'mainapp/script.html' %}
+
+<div class="my-5 container border">
+	<div class="row">
+		<div class="p-4 col-12 col-md-6">
+			<form method="post">
+				{% csrf_token %}
+				<div class="form-group">
+					<label for="eventName"> Event Organizer </label>
+					<input type="text" class="form-control" name="eventOrganizer" id="eventName">
+				</div>
+				<div class="form-group">
+					<label for="eventDate"> Event Date </label>
+					<input type="date" class="form-control" name="eventDate" id="eventDate">
+				</div>
+				<div class="form-group position-relative">
+					<div id="geocoder" class="geocoder"></div>
+				</div>
+				<div class="form-group">
+					<label for=placeName"> Place Name </label>
+					<input type="text" class="form-control" name="placeName" id="placeName" readonly>
+				</div>
+				<div class="row form-group">
+					<div class="col-12 col-md-6">
+						<label for="lon"> Latitude </label>
+						<input type="text" class="form-control" name="lon" id="lon" readonly>
+					</div>
+					<div class="col-12 col-md-6">
+						<label for=lat"> Longitude </label>
+						<input type="text" class="form-control" name="lat" id="lat" readonly>
+					</div>
+				</div>
+				<div class="form-group">
+					<input class="btn btn-success" type="submit" />
+				</div>
+			</form>
+		</div>
+
+		<div class="col-12 col-md-6 position-relative">
+			<div class="border" id="map"></div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript" src="{% static 'js/map.js' %}"></script>
+{% endblock content %}

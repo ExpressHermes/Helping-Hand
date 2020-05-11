@@ -1,0 +1,27 @@
+{% extends 'register/base.html' %}
+{% block content %}
+<form method="POST">
+  {%csrf_token %}
+  <div class="row form-group">
+    <div class="col-2">
+      <label for="username"> Username </label>
+    </div>
+    <div class="col-4">
+      <input class="form-control" type="username" name="username" id="username" required>
+    </div>
+  </div>
+  <div class="row form-group">
+    <div class="col-2">
+      <label for="password"> Password </label>
+    </div>
+    <div class="col-4">
+      <input class="form-control" type="password" name="password" id="password" required>
+    </div>
+  </div>
+  <div class="row form-group">
+    <div class="col-5">
+      <input type="submit" class="btn btn-primary" name="submit" value="Login">
+    </div>
+  </div>
+</form>
+{% endblock %}

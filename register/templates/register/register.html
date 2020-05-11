@@ -1,0 +1,26 @@
+{% extends 'register/base.html' %}
+{% block content %}
+<form method="POST">
+  {% if user_form.errors %}
+    <div class="alert alert-danger">
+      {{user_form.errors}}
+    </div>
+  {% endif %}
+  {% csrf_token %}
+  {% for field in user_form %}
+    <div class="row form-group">
+      <div class="col-2">
+        <label for="email"> {{ field.label }} </label>
+      </div>
+      <div class="col-4">
+        {{ field }}
+      </div>
+    </div>
+  {% endfor %}
+  <div class="row">
+    <div class="col-5">
+      <input type="submit" class="btn btn-primary" name="submit" value="Register">
+    </div>
+  </div>
+</form>
+{% endblock %}
