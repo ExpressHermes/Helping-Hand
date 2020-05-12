@@ -38,10 +38,10 @@ map.on('load', function() {
     var lat = ev.result.geometry.coordinates[1]
     document.querySelector('#lon').value = lon
     document.querySelector('#lat').value = lat
-    document.querySelector('#place_name').value = ev.result.text
+    document.querySelector('#placeName').value = ev.result.text
     // console.log(typeof(lon))
     // console.log(typeof(lat))
-    console.log(ev.result.text)
+    // console.log(ev.result.text)
 
     // create DOM element for the marker
     var el = document.createElement('div');

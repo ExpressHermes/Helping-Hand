@@ -2,71 +2,72 @@
 {% load static %}
 {% block content %}
 {% include 'mainapp/script.html' %}
+
 <div class="mt-3 container border">
-  <h3 class="mt-3"> Create an Event </h3>
-  <hr />
-  <div class="row">
-    <div class="px-4 col-12 col-md-6">
-      <form method="post" action="{% url 'mainapp:create_event' %}">
-        {% csrf_token %}
-        <div class="form-group">
-          <label for="event_name"> Event Name </label>
-          <input type="text" class="form-control" name="event_name" id="event_name" required>
-        </div>
-        <div class="form-group">
-          <label for="event_organizer"> Event Organizer </label>
-          <input type="text" class="form-control" name="event_organizer" id="event_orgainizer" required>
-        </div>
-        <div class="row form-group">
-          <div class="col-12 col-md-6">
-            <label for="event_type"> Event Type </label>
-            <select class="custom-select" name="event_type" id="event_type" required>
-              <option selected value="Food">Food</option>
-              <option value="Clothes">Clothes</option>
-              <option value="Medical">Medical</option>
-              <option value="Other">Other</option>
-            </select>
-          </div>
-          <div class="col-12 col-md-6">
-            <label for="event_date"> Event Date </label>
-            <input type="date" class="form-control" name="event_date" id="event_date" required>
-          </div>
-        </div>
-        <div class="form-group position-relative">
-          <label> Event Location </label>
-          <div id="geocoder" class="geocoder"></div>
-        </div>
-        <div class="form-group">
-          <label for="description"> Event Details </label>
-          <textarea class="form-control" name="description"></textarea>
-        </div>
-        <!-- Hidden Fields -->
-        <!-- <div class="form-group">
+	<h3 class="mt-3"> Create an Event </h3>
+	<hr/>
+	<div class="row">
+		<div class="px-4 col-12 col-md-6">
+			<form method="post" action="{% url 'mainapp:create_event' %}">
+				{% csrf_token %}
+				<div class="form-group">
+					<label for="event_name"> Event Name </label>
+			    <input type="text" class="form-control" name="event_name" id="event_name" required>
+				</div>
+				<div class="form-group">
+					<label for="event_organizer"> Event Organizer </label>
+					<input type="text" class="form-control" name="event_organizer" id="event_orgainizer" required>
+				</div>
+				<div class="row form-group">
+					<div class="col-12 col-md-6">
+						<label for="event_type"> Event Type </label>
+						<select class="custom-select" name="event_type" id="event_type" required>
+						  <option selected value="Food">Food</option>
+						  <option value="Clothes">Clothes</option>
+							<option value="Medical">Medical</option>
+						  <option value="Other">Other</option>
+						</select>
+					</div>
+					<div class="col-12 col-md-6">
+						<label for="event_date"> Event Date </label>
+						<input type="date" class="form-control" name="event_date" id="event_date" required>
+					</div>
+				</div>
+				<div class="form-group position-relative">
+					<label> Event Location </label>
+					<div id="geocoder" class="geocoder"></div>
+				</div>
+				<div class="form-group">
+					<label for="description"> Event Details </label>
+					<textarea class="form-control" name="description"></textarea>
+				</div>
+				<!-- Hidden Fields -->
+				<!-- <div class="form-group">
 					<label for=place_name"> Place Name </label> -->
-        <input type="hidden" class="form-control" name="place_name" id="place_name" readonly>
-        <!-- </div>
+					<input type="hidden" class="form-control" name="place_name" id="place_name" readonly>
+				<!-- </div>
 				<div class="row form-group">
 					<div class="col-12 col-md-6">
 						<label for="lon"> Latitude </label> -->
-        <input type="hidden" class="form-control" name="lon" id="lon" readonly>
-        <!-- </div>
+						<input type="hidden" class="form-control" name="lon" id="lon" readonly>
+					<!-- </div>
 					<div class="col-12 col-md-6">
 						<label for=lat"> Longitude </label> -->
-        <input type="hidden" class="form-control" name="lat" id="lat" readonly>
-        <!-- </div>
+						<input type="hidden" class="form-control" name="lat" id="lat" readonly>
+					<!-- </div>
 				</div> -->
-        <!-- /Hidden Fields -->
-        <div class="form-group">
-          <input class="btn btn-success" type="submit" />
-        </div>
-      </form>
-    </div>
+				<!-- /Hidden Fields -->
+				<div class="form-group">
+					<input class="btn btn-success" type="submit" />
+				</div>
+			</form>
+		</div>
 
-    <div class="col-12 col-md-6 position-relative">
-      <div class="border" id="map"></div>
-    </div>
-  </div>
+		<div class="col-12 col-md-6 position-relative">
+			<div class="border" id="map"></div>
+		</div>
+	</div>
 </div>
 
-<script type="text/javascript" src="{% static 'js/create_map.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/map.js' %}"></script>
 {% endblock content %}
