@@ -4,7 +4,10 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 def home_page(request):
-    return render(request, 'mainapp/home.html')
+    events = Events.objects.all()
+    return render(request, 'mainapp/home.html', {'events': events})
+
+
 
 @login_required
 def create_event(request):
@@ -22,5 +25,5 @@ def create_event(request):
                        place_name=place_name, event_type=event_type,
                        lat=lat, lon=lon)
         event.save()
-        return render(request, 'mainapp/home.html', {'message': 'Event Created Successfully'})
+        return redirect('mainapp:home_page')
     return render(request, 'mainapp/create_event.html')
