@@ -1,11 +1,23 @@
 from django.shortcuts import render,redirect
-from mainapp.models import Events
+from mainapp.models import Event
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 def home_page(request):
-    events = Events.objects.all()
-    return render(request, 'mainapp/home.html', {'events': events})
+    events = Event.objects.all()
+    events_food = Event.objects.filter(event_type='Food')
+    events_clothes = Event.objects.filter(event_type='Clothes')
+    events_medical = Event.objects.filter(event_type='Medical')
+    events_other = Event.objects.filter(event_type='Other')
+    # print(events_food, events_clothes, events_other, events_medical)
+    context = {
+                'events': events,
+                'events_clothes': events_clothes,
+                'events_food': events_food,
+                'events_medical': events_medical,
+                'events_other': events_other,
+    }
+    return render(request, 'mainapp/home.html', context)
 
 
 
@@ -20,7 +32,7 @@ def create_event(request):
         place_name = request.POST.get('place_name')
         lat = request.POST.get('lat')
         lon = request.POST.get('lon')
-        event = Events(event_organizer=event_organizer, event_name=event_name,
+        event = Event(event_organizer=event_organizer, event_name=event_name,
                        event_date=event_date, description=description,
                        place_name=place_name, event_type=event_type,
                        lat=lat, lon=lon)

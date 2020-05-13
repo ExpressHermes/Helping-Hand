@@ -1,53 +1,232 @@
-{% extends 'mainapp/index.html' %}
+{% extends 'mainapp/base.html' %}
 {% block content %}
 {% include 'mainapp/script.html' %}
-<h1> MAIN PAGE </h1>
-<div class="position-relative">
-  <div class="border" id="home-map"></div>
+<div class="row" id="map-container">
+  <div class="px-0 col-12 position-relative">
+    <div id="home-map"></div>
+  </div>
+  <div class="py-2 col-12">
+    <div class="row justify-content-center">
+      <div class="col-auto">
+          <span class="pointer food">●</span>Food
+      </div>
+      <div class="col-auto">
+          <span class="pointer clothes">●</span>Clothes
+      </div>
+      <div class="col-auto">
+          <span class="pointer medical">●</span>Medical
+      </div>
+      <div class="col-auto">
+          <span class="pointer other">●</span>Other
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Cards Container -->
+<div class="mt-5 container">
+  <div class="row justify-content-between">
+    <div class="col-auto">
+        <h2> Today's Events </h2>
+    </div>
+    <div class="col-auto float-right">
+      <button type="button" class="btn btn-primary" id="map-toggler" name="button">Hide Map</button>
+    </div>
+  </div>
+  <hr />
+  <div class="row">
+    {% for event in events %}
+    <div class="pt-3 col-12 col-md-6 col-lg-4">
+      <div class="card event-card">
+        <div class="card-header">
+          <h3> {{ event.event_name }} </h3>
+          <div class="text-muted"> {{ event.event_date }} </div>
+        </div>
+        <div class="card-body">
+          <div class="row justify-content-around">
+            <div class="col-6">
+              <h5> Items </h5>
+              <p> {{ event.event_type }} </p>
+            </div>
+            <div class="col-6">
+              <h5> Place </h5>
+              <p> {{ event.place_name }} </p>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <div class="row justify-content-between">
+            <div class="col-auto">
+              By: {{ event.event_organizer }}
+            </div>
+            <!-- <div class="col-auto">
+              <button class="px-3 btn btn-primary"> Details </button>
+            </div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
 </div>
 
 <!-- IGNORE THIS -->
 <script>
+  $(document).ready(function() {
+    $('#map-toggler').click(function() {
+      var $this = $(this);
+      $('#map-container').toggle('blind', 1000);
+
+      $this.toggleClass('hidden');
+      if($this.hasClass('hidden'))
+        $this.html('Show on Map');
+      else
+        $this.html('Hide Map');
+    });
+  });
+</script>
+<script>
   mapboxgl.accessToken = 'pk.eyJ1IjoiamFudXNpaSIsImEiOiJjazl6d2IzdmYxMnJsM21wazB3a2llY2lwIn0.pLRf45aHIwdJ6dypoH0qSA';
   var map = new mapboxgl.Map({
-  container: 'home-map', // Container ID
-  style: 'mapbox://styles/mapbox/streets-v11', // Map style to use
-  center: [80.33111, 26.4725], // Starting position [lng, lat]
-  zoom: 10, // Starting zoom level
+    container: 'home-map', // Container ID
+    style: 'mapbox://styles/mapbox/streets-v11', // Map style to use
+    center: [80.33111, 26.4725], // Starting position [lng, lat]
+    zoom: 10, // Starting zoom level
   });
 
   map.addControl(new mapboxgl.NavigationControl());
 
+  // Food Type Markers
   var geojson = {
     type: 'FeatureCollection',
     features: [
-    {% for e in events %}
-      {
+    {% for e in events%}
+       {
         type: 'Feature',
         geometry: {
           type: 'Point',
-          coordinates: [{{ e.lon }}, {{ e.lat }}]
+          coordinates: [ {{ e.lon }}, {{ e.lat }} ]
+        },
+        properties: {
+          title: '{{ e.event_name }}',
+          description: '{{ e.event_organizer }}',
+          // c_name: '{{ e.event_type|lower }}'
+        }
+      },
+      {% endfor %}
+    ]
+  };
+
+  geojson.features.forEach(function(marker) {
+    var el = document.createElement('div');
+    el.className = 'marker-food';
+
+    new mapboxgl.Marker(el)
+      .setLngLat(marker.geometry.coordinates)
+      .setPopup(new mapboxgl.Popup({
+          offset: 25
+        })
+        .setHTML('<h4>' + marker.properties.title + '</h4><p> by' + marker.properties.description + '</p>'))
+      .addTo(map);
+  });
+
+  // Marker for Clothes
+  var geojson = {
+    type: 'FeatureCollection',
+    features: [
+    {% for e in events_clothes %}
+       {
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: [ {{ e.lon }}, {{ e.lat }} ]
         },
         properties: {
           title: '{{ e.event_name }}',
           description: '{{ e.event_organizer }}'
         }
       },
-    {% endfor %}
+      {% endfor %}
     ]
   };
 
-  // console.log("JAVASCRIPT LOADED");
-
-  geojson.features.forEach(function(marker){
+  geojson.features.forEach(function(marker) {
     var el = document.createElement('div');
-    el.className = 'marker';
+    el.className = 'marker-clothes';
 
     new mapboxgl.Marker(el)
-    .setLngLat(marker.geometry.coordinates)
-    .setPopup(new mapboxgl.Popup({ offset: 25 })
-    .setHTML('<h4>' + marker.properties.title + '</h4><p> by' + marker.properties.description + '</p>'))
-    .addTo(map);
+      .setLngLat(marker.geometry.coordinates)
+      .setPopup(new mapboxgl.Popup({
+          offset: 25
+        })
+        .setHTML('<h4>' + marker.properties.title + '</h4><p> by' + marker.properties.description + '</p>'))
+      .addTo(map);
+  });
+
+  // Marker for Medical
+  var geojson = {
+    type: 'FeatureCollection',
+    features: [
+    {% for e in events_medical %}
+       {
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: [ {{ e.lon }}, {{ e.lat }} ]
+        },
+        properties: {
+          title: '{{ e.event_name }}',
+          description: '{{ e.event_organizer }}'
+        }
+      },
+      {% endfor %}
+    ]
+  };
+
+  geojson.features.forEach(function(marker) {
+    var el = document.createElement('div');
+    el.className = 'marker-medical';
+
+    new mapboxgl.Marker(el)
+      .setLngLat(marker.geometry.coordinates)
+      .setPopup(new mapboxgl.Popup({
+          offset: 25
+        })
+        .setHTML('<h4>' + marker.properties.title + '</h4><p> by' + marker.properties.description + '</p>'))
+      .addTo(map);
+  });
+
+  // Marker for Other
+  var geojson = {
+    type: 'FeatureCollection',
+    features: [
+    {% for e in events_other%}
+       {
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: [ {{ e.lon }}, {{ e.lat }} ]
+        },
+        properties: {
+          title: '{{ e.event_name }}',
+          description: '{{ e.event_organizer }}'
+        }
+      },
+      {% endfor %}
+    ]
+  };
+
+  geojson.features.forEach(function(marker) {
+    var el = document.createElement('div');
+    el.className = 'marker-other';
+
+    new mapboxgl.Marker(el)
+      .setLngLat(marker.geometry.coordinates)
+      .setPopup(new mapboxgl.Popup({
+          offset: 25
+        })
+        .setHTML('<h4>' + marker.properties.title + '</h4><p> by' + marker.properties.description + '</p>'))
+      .addTo(map);
   });
 </script>
 

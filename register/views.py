@@ -16,7 +16,7 @@ def register(request):
             user = user_form.save()
             user.set_password(user.password)
             user.save()
-            return redirect(reverse('register:home_page'))
+            return redirect(reverse('mainapp:home_page'))
         else:
             return render(request, 'register/register.html', {'user_form': user_form})
 
@@ -36,7 +36,7 @@ def user_login(request):
         if user:
             if user.is_active:
                 login(request, user)
-                return render(request, 'register/home.html', {'message': 'Logged in successfully!'})
+                return render(request, 'mainapp/home.html', {'message': 'Logged in successfully!'})
         else:
             return render(request, 'register/home.html', {'message': 'You need to register yourself first'})
     else:
@@ -45,4 +45,4 @@ def user_login(request):
 @login_required
 def user_logout(request):
     logout(request)
-    return redirect(reverse('register:home_page'))
+    return redirect(reverse('mainapp:home_page'))
