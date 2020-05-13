@@ -1,6 +1,6 @@
 from django.db import models
 
-class Events(models.Model):
+class Event(models.Model):
     event_organizer = models.CharField(max_length=100)
     event_name = models.CharField(max_length=100)
     event_date = models.DateField()

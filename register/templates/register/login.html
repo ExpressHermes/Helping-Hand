@@ -2,6 +2,12 @@
 {% block content %}
 <form method="POST">
   {%csrf_token %}
+  <div class="row text-center">
+    <div class="col-12">
+      <h2> Please login </h2>
+    </div>
+  </div>
+  <hr />
   <div class="row form-group justify-content-center">
     <div class="col-12 col-md-4">
       <label for="username"> Username </label>
