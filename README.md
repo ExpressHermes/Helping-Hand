@@ -39,7 +39,7 @@ cd Helping-Hand
 python manage.py runserver
 ```
 
-To create superuser, run following command inside Helpin-Hand folder
+To create superuser, run following command inside Helping-Hand folder
 ```
 python manage.py createsuperuser
 ```
