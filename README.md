@@ -5,10 +5,10 @@ A social platform built for the organizers charity events to connect with each o
 The frontend is fast and interactive. It is built with HTML, CSS, Bootstrap 4 and Vanilla JavaScript.
 
 ## Demo Screenshots
-    ![Register page](https://github.com/ExpressHermes/Helping-Hand/blob/master/preview/register%20page.png?raw=True)
-    ![Login page](https://github.com/ExpressHermes/Helping-Hand/blob/master/preview/login%20page.png?raw=True)
-    ![Event creation page](https://github.com/ExpressHermes/Helping-Hand/blob/master/preview/create%20event.png?raw=True)
-    ![Events List page](https://github.com/ExpressHermes/Helping-Hand/blob/master/preview/events%20list.png?raw=True)
+![Register page](https://github.com/ExpressHermes/Helping-Hand/blob/master/preview/register%20page.png)
+![Login page](https://github.com/ExpressHermes/Helping-Hand/blob/master/preview/login%20page.png)
+![Event creation page](https://github.com/ExpressHermes/Helping-Hand/blob/master/preview/create%20event.png)
+![Events List page](https://github.com/ExpressHermes/Helping-Hand/blob/master/preview/events%20list.png)
     
 ## Backend
 The backend is built with Django framework. It uses SQL based database.
