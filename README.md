@@ -1,4 +1,6 @@
 # Helping Hand
+[![Gitter](https://badges.gitter.im/ExpressHermesOSC/Helping-Hand.svg)](https://gitter.im/ExpressHermesOSC/Helping-Hand?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+
 A social platform built for the organizers charity events to connect with each other to organize bigger events and thus help more people.  
 
 ## Frontend
