@@ -20,36 +20,62 @@ Make sure following softwares are installed in your computer:
 * Python 3
 * Git
 
-First you need to clone the repository
-```
-git clone https://github.com/ExpressHermes/Helping-Hand.git
-```
+- First you need to clone the repository
+  ```
+  git clone https://github.com/ExpressHermes/Helping-Hand.git
+  ```
 
-Install all required dependencies in a virtual environment
-```
-cd <directory_name>
-python3 -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
-```
+- Install all required dependencies in a virtual environment
+  ```
+  cd <directory_name>
+  python3 -m venv venv
+  source venv/bin/activate
+  pip install -r requirements.txt
+  ```
 
-Run the backend on local server
-```
-cd <directory_name>
-source venv/bin/activate
-cd Helping-Hand
-python manage.py runserver
-```
+- Run the backend on local server
+  ```
+  cd <directory_name>
+  source venv/bin/activate
+  cd Helping-Hand
+  python manage.py runserver
+  ```
 
-To create superuser, run following command inside Helping-Hand folder
-```
-python manage.py createsuperuser
-```
+- To create superuser, run following command inside Helping-Hand folder
+  ```
+  python manage.py createsuperuser
+  ```
 
 
-For a "OperationalError", run the following command
-```
-python manage.py makemigrations mainapp
-python manage.py migrate
- ```
- 
+- For a "OperationalError", run the following command
+  ```
+  python manage.py makemigrations mainapp
+  python manage.py migrate
+  ```
+
+## Contribution
+- Fork and clone the repo.  
+- To avoid merge conflicts, make sure to set upstream in your git.
+    ```
+    git remote add upstream https://github.com/ExpressHermes/Helping-Hand.git
+    ```
+- Whenever you want to pull changes from main repo, run:
+    ```
+    git pull upstream master
+    ```
+- Create your feature branch
+    ```
+    git checkout -b <feature-name>
+    ```
+- Commit your changes
+    ```
+    git commit -am "Meaningful commit message"
+    ```
+- Push to the branch
+    ```
+    git push origin <feature-name>
+    ```
+
+- If you see any bug or you have a feature suggestion, create an issue.
+- Start working on an issue only after it has been approved by the maintainer.
+- Wait till the end of the day to get the reply on an issue or review of a PR.
