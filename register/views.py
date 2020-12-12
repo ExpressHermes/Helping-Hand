@@ -38,7 +38,7 @@ def user_login(request):
                 login(request, user)
                 return render(request, 'mainapp/home.html', {'message': 'Logged in successfully!'})
         else:
-            return render(request, 'register/home.html', {'message': 'You need to register yourself first'})
+            return redirect('/register/')
     else:
         return render(request, 'register/login.html')
 
