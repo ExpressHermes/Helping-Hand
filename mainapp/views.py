@@ -4,18 +4,41 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 def home_page(request):
+    id = request.GET.get('id')
     events = Event.objects.all()
     events_food = Event.objects.filter(event_type='Food')
     events_clothes = Event.objects.filter(event_type='Clothes')
     events_medical = Event.objects.filter(event_type='Medical')
     events_other = Event.objects.filter(event_type='Other')
     # print(events_food, events_clothes, events_other, events_medical)
+
+    try:
+        user = request.user
+    except:
+        user = None
+    if user is not None and user.is_authenticated:
+        if id:
+            event = Event.objects.filter(id=id).first()
+            if user in event.interested.all():
+                event.interested.remove(user)
+            else:
+                event.interested.add(user)
+            event.save()
+        for event in events:
+            print(event.interested.all())
+            if user in event.interested.all():
+                event.is_interested = True
+            else:
+                event.is_interested = False
+    else:
+        user = None
     context = {
                 'events': events,
                 'events_clothes': events_clothes,
                 'events_food': events_food,
                 'events_medical': events_medical,
                 'events_other': events_other,
+                'user': user,
     }
     return render(request, 'mainapp/home.html', context)
 
