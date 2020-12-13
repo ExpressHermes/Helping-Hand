@@ -3,6 +3,7 @@ from . import forms
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 # Create your views here.
 
 def home_page(request):
@@ -38,7 +39,8 @@ def user_login(request):
                 login(request, user)
                 return render(request, 'mainapp/home.html', {'message': 'Logged in successfully!'})
         else:
-            return render(request, 'register/home.html', {'message': 'You need to register yourself first'})
+            messages.warning(request, 'You need to register yourself first!')
+            return redirect('/register/')
     else:
         return render(request, 'register/login.html')
 
