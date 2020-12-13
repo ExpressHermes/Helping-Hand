@@ -53,6 +53,17 @@
               <p> {{ event.place_name }} </p>
             </div>
           </div>
+
+          {% if user %}
+            <div class="row justify-content-around">
+              {% if event.is_interested %}
+                <button class="btn btn-primary" onclick="window.location.href='?id={{event.id}}'"><h5> Interested </h5></button>
+              {% else %}
+                <button class="btn btn-primary" style="background-color: white; color: black;" onclick="window.location.href='?id={{event.id}}'"><h5> Interested </h5></button>
+              {% endif %}
+            </div>
+          {% endif %}
+
         </div>
         <div class="card-footer">
           <div class="row justify-content-between">
