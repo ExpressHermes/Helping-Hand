@@ -68,7 +68,7 @@
         <div class="card-footer">
           <div class="row justify-content-between">
             <div class="col-auto">
-              By: {{ event.event_organizer }}
+              By: {{ event.event_organizer.fullname }}
             </div>
             <!-- <div class="col-auto">
               <button class="px-3 btn btn-primary"> Details </button>
@@ -120,7 +120,7 @@
         },
         properties: {
           title: '{{ e.event_name }}',
-          description: '{{ e.event_organizer }}',
+          description: '{{ e.event_organizer.fullname }}',
           // c_name: '{{ e.event_type|lower }}'
         }
       },
@@ -154,7 +154,7 @@
         },
         properties: {
           title: '{{ e.event_name }}',
-          description: '{{ e.event_organizer }}'
+          description: '{{ e.event_organizer.fullname }}'
         }
       },
       {% endfor %}
@@ -187,7 +187,7 @@
         },
         properties: {
           title: '{{ e.event_name }}',
-          description: '{{ e.event_organizer }}'
+          description: '{{ e.event_organizer.fullname }}'
         }
       },
       {% endfor %}
@@ -220,7 +220,7 @@
         },
         properties: {
           title: '{{ e.event_name }}',
-          description: '{{ e.event_organizer }}'
+          description: '{{ e.event_organizer.fullname }}'
         }
       },
       {% endfor %}

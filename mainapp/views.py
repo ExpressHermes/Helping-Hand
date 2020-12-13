@@ -47,7 +47,7 @@ def home_page(request):
 @login_required
 def create_event(request):
     if request.method == 'POST':
-        event_organizer = request.POST.get('event_organizer')
+        event_organizer = request.user
         event_name = request.POST.get('event_name')
         event_date = request.POST.get('event_date')
         description = request.POST.get('description')
