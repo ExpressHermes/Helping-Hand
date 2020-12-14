@@ -1,7 +1,39 @@
 from django.shortcuts import render,redirect
 from mainapp.models import Event
 from django.contrib.auth.decorators import login_required
+
+from .models import *
+from register.models import *
+from django.http import HttpResponse
+
+
 # Create your views here.
+
+@login_required
+def dashboard(request, username=None):
+    if username is None:
+        user = request.user
+    else:
+        user = CustomUser.objects.filter(username=username).first()
+    if user is None:
+        return HttpResponse("<h1>The user or the dashboard of this user doesn't exist.</h1>")
+    all_events = Event.objects.all()
+    user_events = []
+    for event in all_events:
+        if event.event_organizer == user:
+            user_events.append(event)
+    total_interested = 0
+    for event in user_events:
+        total_interested += len(event.interested.all())
+    percent_interested = round((total_interested*100)/(len(CustomUser.objects.all())), 2)
+    context = {
+        'user_events': user_events,
+        'user': user,
+        'percent_interested': percent_interested,
+        'total_interested': total_interested,
+    }
+    return render(request, 'dashboard/index.html', context)
+
 
 def home_page(request):
     id = request.GET.get('id')
