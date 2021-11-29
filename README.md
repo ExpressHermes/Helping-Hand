@@ -1,5 +1,5 @@
 # Helping Hand
-[![Gitter](https://badges.gitter.im/ExpressHermesOSC/Helping-Hand.svg)](https://gitter.im/ExpressHermesOSC/Helping-Hand?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+[![Slack](https://img.shields.io/badge/Slack-4A154B?style=for-the-badge&logo=slack&logoColor=white)](https://join.slack.com/t/slack-coh8135/shared_invite/zt-zrefahmo-NcRHial9jkoZrzZEcFMMTA)
 
 A social platform built for the organizers charity events to connect with each other to organize bigger events and thus help more people.  
 
