@@ -77,7 +77,7 @@ def user_verify(request, uidb64, token):
             user.is_active = True
             user.save()
 
-            messages.success(request, 'Account activated successfully')
+            messages.success(request, 'Account successfully created. Please check your email for the verification link')
             return redirect('register:login')
 
         except Exception as e:
