@@ -37,9 +37,14 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+     'django.contrib.sites',
     'django.contrib.staticfiles',
     'register',
-    'mainapp'
+    'mainapp',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
 ]
 
 MIDDLEWARE = [
@@ -68,6 +73,13 @@ TEMPLATES = [
             ],
         },
     },
+]
+
+AUTHENTICATION_BACKENDS = [
+    
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+   
 ]
 
 WSGI_APPLICATION = 'HelpingHand.wsgi.application'
@@ -124,7 +136,10 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join('BASE_DIR', 'static/'), ]
 STATIC_ROOT = 'static'
 
+SITE_ID = 1
+
 LOGIN_URL = '/register/login/'
+LOGIN_REDIRECT_URL = '/'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = os.environ.get('EMAIL_HOST')
