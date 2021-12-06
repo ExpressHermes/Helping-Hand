@@ -47,7 +47,7 @@ def register(request):
                 )
 
             email.send(fail_silently=False)
-            messages.success(request, 'Account successfully created')
+            messages.success(request, 'Account successfully created. Please check your email for the verification link')
 
             return redirect('register:login')
             # return redirect(reverse('mainapp:home_page'))
@@ -77,7 +77,7 @@ def user_verify(request, uidb64, token):
             user.is_active = True
             user.save()
 
-            messages.success(request, 'Account successfully created. Please check your email for the verification link')
+            messages.success(request, 'Account activated successfully')
             return redirect('register:login')
 
         except Exception as e:
