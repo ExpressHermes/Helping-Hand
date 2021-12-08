@@ -115,6 +115,20 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+# Provider specific settings
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+
+        'APP': {
+            'client_id':
+'205572182803-4bcsqgj20ehavbnch66sgr6pphd1dgqo.apps.googleusercontent.com',
+            'secret': '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',
+            'key': ''
+        }
+    }
+}
+
+
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
