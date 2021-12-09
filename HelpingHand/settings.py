@@ -11,17 +11,21 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+import environ
+
+# Initialise environment variables
+env = environ.Env()
+environ.Env.read_env()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '$v!n)gxc4=%(hv7n^*dnet6r6@291$qwnoh5yr2aju%)x5a6%2'
+SECRET_KEY = "v!n)gxc4=%(hv7n^*dnet6r6@291$qwnoh5yr2aju%)x5a6%2"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -120,9 +124,8 @@ SOCIALACCOUNT_PROVIDERS = {
     'google': {
 
         'APP': {
-            'client_id':
-'205572182803-4bcsqgj20ehavbnch66sgr6pphd1dgqo.apps.googleusercontent.com',
-            'secret': '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',
+            'client_id': env("GOOGLE_AUTH_ID"), 
+            "secret" : env("GOOGLE_AUTH_SECRET_KEY"),
             'key': ''
         }
     }
