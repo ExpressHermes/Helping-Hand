@@ -3,5 +3,5 @@
 db.sqlite3
 do's.txt
 env.bat
-.env
+HelpingHand/.env
 venv/

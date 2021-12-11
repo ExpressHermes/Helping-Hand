@@ -53,6 +53,15 @@ Make sure following softwares are installed in your computer:
   python manage.py migrate
   ```
 
+## Setting the environment variables
+If you are facing the problem in login through Google, follow these steps:
+- Create a .env file in the project directory of Helping Hands.
+- Follow the variable names from .env.sample file but values of that variables are dummy so make sure to update.
+- Now for getting the client id and secret key, Go to https://console.cloud.google.com/ .
+- Create new project and give it a name then go to your project and configure your OAuth Consent Screen.
+- After that Go to API & Services and then credentials, create the OAuth Key.
+- Copy paste the Client id and secret key in the .env file.
+
 ## Contribution
 - Fork and clone the repo.  
 - To avoid merge conflicts, make sure to set upstream in your git.
