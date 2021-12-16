@@ -6,3 +6,21 @@ body {
   font-family: 'PT Sans', sans-serif;
   background-color: rgb(252, 252, 252);
 }
+
+.dark-mode {
+  background-color: #141414;
+  color: white;
+}
+
+.formBlock {
+  background-color: #000000;
+  border: 2px solid rgb(30, 137, 207);
+  border-top: 8px solid rgb(30, 137, 207);
+  border-radius: 10px;
+  color: #00FFFF;
+  padding-top: 10px;
+}
+
+.hrLineDark {
+  background-color: rgb(30, 137, 207);
+}

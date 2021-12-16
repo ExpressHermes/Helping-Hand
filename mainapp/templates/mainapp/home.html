@@ -1,4 +1,5 @@
 {% extends 'mainapp/base.html' %}
+{% load static%}
 {% block content %}
 {% include 'mainapp/script.html' %}
 <div class="row" id="map-container">
@@ -27,30 +28,30 @@
 <div class="mt-5 container">
   <div class="row justify-content-between">
     <div class="col-auto">
-        <h2> Upcoming Events </h2>
+        <h2 class="eventsInfo"> Upcoming Events </h2>
     </div>
     <div class="col-auto float-right">
       <button type="button" class="btn btn-primary" id="map-toggler" name="button">Hide Map</button>
     </div>
   </div>
-  <hr />
+  <hr id="hrLine"/>
   <div class="row">
     {% for event in events %}
     <div class="pt-3 col-12 col-md-6 col-lg-4">
-      <div class="card event-card">
-        <div class="card-header">
+      <div class="card event-card eventBlock">
+        <div class="card-header cardHeader">
           <h3> {{ event.event_name }} </h3>
-          <div class="text-muted"> {{ event.event_date }} </div>
+          <div class="text-muted eventsInfo"> {{ event.event_date }} </div>
         </div>
-        <div class="card-body">
+        <div class="card-body cardBody">
           <div class="row justify-content-around">
             <div class="col-6">
               <h5> Items </h5>
-              <p> {{ event.event_type }} </p>
+              <p class="eventsInfo"> {{ event.event_type }} </p>
             </div>
             <div class="col-6">
               <h5> Place </h5>
-              <p> {{ event.place_name }} </p>
+              <p class="eventsInfo"> {{ event.place_name }} </p>
             </div>
           </div>
 
@@ -59,7 +60,7 @@
               {% if event.is_interested %}
                 <button class="btn btn-primary" onclick="window.location.href='?id={{event.id}}'"><h5> Interested </h5></button>
               {% else %}
-                <button class="btn btn-primary" style="background-color: white; color: black;" onclick="window.location.href='?id={{event.id}}'"><h5> Interested </h5></button>
+                <button class="btn btn-primary notInterestedBtn" style="background-color: #c5dff5; color: black;" onclick="window.location.href='?id={{event.id}}'"><h5> Interested </h5></button>
               {% endif %}
             </div>
           {% endif %}
@@ -80,7 +81,6 @@
     {% endfor %}
   </div>
 </div>
-
 <!-- IGNORE THIS -->
 <script>
   $(document).ready(function() {
@@ -240,5 +240,6 @@
       .addTo(map);
   });
 </script>
-
+<script type="text/javascript" src="{% static 'js/update_theme.js' %}"></script>
 {% endblock content %}
+

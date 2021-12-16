@@ -130,3 +130,47 @@ span.pointer {
 .event-card .card-footer {
   background-color: transparent;
 }
+
+.dark-mode {
+  background-color: #141414;
+  color: white;
+}
+
+.navbar-border {
+  border-bottom: 2px solid rgb(30, 137, 207);
+  background-color: lightgrey;
+}
+
+.hrLine {
+  border: 0.5px solid rgb(30, 137, 207);
+}
+
+.darkEventBlock {
+  background-color: #000000;
+  border: 2px solid rgb(30, 137, 207);
+  border-top: 8px solid rgb(30, 137, 207);
+  color: #00FFFF;
+}
+
+.formBlock {
+  background-color: #000000;
+  border: 2px solid rgb(30, 137, 207);
+  border-top: 8px solid rgb(30, 137, 207);
+  border-radius: 10px;
+  color: #00FFFF;
+  padding-top: 10px;
+}
+
+.cardBorder {
+  border-bottom: 0.5px solid rgb(30, 137, 207);
+}
+
+.eventsInfoDark {
+  color: #4eb5f0;
+}
+
+.notInterestedBtnDark {
+  background-color: #343a40;
+  color: white;
+  border: white;
+}
