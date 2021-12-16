@@ -1,34 +1,39 @@
 {% extends 'register/base.html' %}
+{% load static %}
 {% block content %}
 <form method="POST">
   {%csrf_token %}
-  <div class="row text-center">
-    <div class="col-12">
-      <h2> Please login </h2>
+  <div class="registerForm">
+    <div class="row text-center">
+      <div class="col-12">
+        <h2> Please login </h2>
+      </div>
     </div>
-  </div>
-  <hr />
-  <div class="row form-group justify-content-center">
-    <div class="col-12 col-md-4">
-      <label for="username"> Username </label>
-      <input class="form-control" type="username" name="username" id="username" required>
+    <hr class="hrLine" />
+    <div class="row form-group justify-content-center">
+      <div class="col-12 col-md-4">
+        <label for="username"> Username </label>
+        <input class="form-control" type="username" name="username" id="username" required>
+      </div>
     </div>
-  </div>
-  <div class="row form-group justify-content-center">
-    <div class="col-12 col-md-4">
-      <label for="password"> Password </label>
-      <input class="form-control" type="password" name="password" id="password" required/>
+    <div class="row form-group justify-content-center">
+      <div class="col-12 col-md-4">
+        <label for="password"> Password </label>
+        <input class="form-control" type="password" name="password" id="password" required />
+      </div>
     </div>
-  </div>
-  <div class="row form-group justify-content-center">
-    <div class="col-12 col-md-4">
-      <a href="/accounts/google/login/?process=login" class="btn btn-block btn-outline-danger"><i class="icon fa-google  "></i> Google Login</a>
+    <div class="row form-group justify-content-center">
+      <div class="col-12 col-md-4">
+        <a href="/accounts/google/login/?process=login" class="btn btn-block btn-outline-danger"><i
+            class="icon fa-google  "></i> Google Login</a>
+      </div>
     </div>
-  </div>
-  <div class="row form-group justify-content-center">
-    <div class="col-12 col-md-4">
-      <input type="submit" class="btn btn-primary btn-block" name="submit" value="Login">
+    <div class="row form-group justify-content-center">
+      <div class="col-12 col-md-4">
+        <input type="submit" class="btn btn-primary btn-block" name="submit" value="Login">
+      </div>
     </div>
   </div>
 </form>
+<script type="text/javascript" src="{% static 'js/update_theme_register.js' %}"></script>
 {% endblock %}
