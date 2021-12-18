@@ -1,5 +1,6 @@
 {% extends 'register/base.html' %}
 {% load static %}
+{% load crispy_forms_tags %}
 {% block content %}
 
 <form method="POST">
@@ -11,7 +12,15 @@
     </button>
   </div>
   {% endif %}
-  {% csrf_token %}
+  <!-- {% for error in errors%}
+  {% if error %}
+  <div class="alert alert-danger" style="margin-bottom: 0px;padding-top: 5px;padding-bottom: 5px;font-size: 0.89rem;">
+    {{user_form.errors}}
+      <strong>{{ error|escape }}</strong>
+  </div>
+  {% endif %}
+  {% endfor %} -->
+  
   <div class="registerForm">
     <div class="row text-center">
       <div class="col-12">
@@ -19,14 +28,45 @@
       </div>
     </div>
     <hr class="hrLine" />
-    {% for field in user_form %}
+    <!-- {% for field in user_form %}
     <div class="row form-group justify-content-center">
       <div class="col-12 col-md-4">
         <label for="email"> {{ field.label }} </label>
         {{ field }}
       </div>
     </div>
-    {% endfor %}
+    {% endfor %} -->
+    {% csrf_token %}
+    <div class="row form-group justify-content-center"> 
+        <!-- {{user_form|crispy}} -->
+        <div class="col-12 col-md-4">
+          <div class="form-group">
+            <strong><label for="username" style="font-size: 1.25rem;">Username<strong style="color:red;">*</strong></label></strong>
+            <div> <input type="text" id="kk" name="username" /></div>
+          </div>
+          <div class="form-group">
+            <strong><label for="fname" style="font-size: 1.25rem;">First Name<strong style="color:red;">*</strong></label></strong>
+            <div> <input type="text" id="kk" name="fname"/></div>
+          </div>
+          <div class="form-group">
+            <strong><label for="lname" style="font-size: 1.25rem;">Last Name<strong style="color:red;">*</strong></label></strong>
+            <div> <input type="text" id="kk" name="lname"/></div>
+          </div>
+          <div class="form-group">
+            <strong><label for="email" style="font-size: 1.25rem;">Email ID<strong style="color:red;">*</strong></label></strong>
+            <div> <input type="email" id="kk" name="email"/></div>
+          </div>
+          <div class="form-group">
+            <strong><label for="password1" style="font-size: 1.25rem;">Password<strong style="color:red;">*</strong></label></strong>
+            <div> <input type="password" id="kk" name="password1"/></div>
+            <div style="margin-top:0.5rem"><strong style="color:red;">*</strong>&nbsp;Password must be atleast 8 characters long</div>
+          </div>
+          <div class="form-group" style="font-size: 1.25rem;">
+          <strong><label for="password2">Confirm Password<strong style="color:red;">*</strong></label></strong>
+            <div> <input type="password" id="kk" name="password2"/></div>
+          </div>
+        </div>
+    </div>
     <div class="row form-group justify-content-center">
       <div class="col-12 col-md-4">
         <input type="submit" class="btn btn-primary btn-block" name="submit" value="Register">

@@ -1,3 +1,4 @@
+# from django.http import request
 from django.shortcuts import render, redirect
 from . import forms
 from django.urls import reverse
@@ -18,16 +19,29 @@ from .utils import token_generator
 def home_page(request):
     return render(request, 'register/home.html')
 
+
+
 def register(request):
     if request.method == 'POST':
-        user_form = forms.UserForm(data=request.POST)
-
+        # user_form = forms.UserForm(data=request.POST)
+        user_form = forms.UserForm(request.POST)
+        
         if user_form.is_valid():
             user = user_form.save()
-            user.set_password(user.password)
-            user.is_active = False
+            password1 = user_form.cleaned_data.get('password1')
+            # password2 = user_form.cleaned_data.get('password2')
+            # print(password1)
+            user.last_name=request.POST['lname']
+            user.first_name=request.POST['fname']
+            print("##########################################################################")
+            print(password1)
+            print(user.last_name)
+            print(user.first_name)
+            user.set_password(password1)
+            # Set is_active to true since after clicking the activation link, is_active is not changing to True from False
+            user.is_active = True
+            # user.is_active = False
             user.save()
-
             # encoding user id to send over the network
 
             uidb64 = urlsafe_base64_encode(force_bytes(user.pk))
@@ -52,12 +66,12 @@ def register(request):
             return redirect('register:login')
             # return redirect(reverse('mainapp:home_page'))
         else:
-            return render(request, 'register/register.html', {'user_form': user_form})
+            return render(request, 'register/register.html', {'user_form': user_form, 'errors':user_form.errors})
 
     else:
         user_form = forms.UserForm()
 
-    return render(request, 'register/register.html', {'user_form': user_form})
+    return render(request, 'register/register.html', {'user_form': user_form, 'errors':user_form.errors})
 
 def user_verify(request, uidb64, token):
 
@@ -85,24 +99,46 @@ def user_verify(request, uidb64, token):
 
         return redirect('register:login')
 
+
 def user_login(request):
-    if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-
-        user = authenticate(username=username, password=password)
-
-        
-
-        if user:
+    if request.user.is_authenticated:
+        messages.success(request, 'Logged in successfully!')
+        return render(request, 'mainapp/home.html', {'message': 'Logged in successfully!'})
+    if request.method == "POST":
+        username=request.POST['username']
+        password=request.POST['password']
+        user=authenticate(username=username, password=password)
+        if user is not None:
             if user.is_active:
                 login(request, user)
-                return render(request, 'mainapp/home.html', {'message': 'Logged in successfully!'})
+                messages.success(request, 'Logged in successfully!')
+                return render(request,  'mainapp/home.html', {'message': 'Logged in successfully!'})
+            else:
+                messages.warning(request, 'You have not activated your account, activate using the link sent to your mail.')
+                return render(request, 'register/login.html', {'error': 'You have not activated your account, activate using the link sent to your mail.'})
         else:
-            messages.warning(request, 'You need to register yourself first!')
-            return redirect('/register/')
+            try:
+                user=User.objects.get(username=username)
+                if not user.is_active:
+                    messages.warning(request, 'You have not activated your account, activate using the link sent to your mail.')
+                    return render(request, 'register/login.html', {'error': 'You have not activated your account, activate using the link sent to your mail.'})
+                if password!=user.password:
+                    messages.warning(request, 'Incorrect Password')
+                    return render(request, 'register/login.html', {'error':'Incorrect Password'})
+            except:
+                print("Not a registered user")
+                messages.warning(request, 'You need to register yourself first!')
+                return redirect('/register/')
     else:
-        return render(request, 'register/login.html')
+        return render(request, "register/login.html")
+
+
+# def forgot_password(request):
+#     if request.method == 'POST':
+#         username = request.POST['username']
+#         user = User.objects.get(pk=id)
+#         if user:
+                
 
 @login_required
 def user_logout(request):
