@@ -33,7 +33,19 @@
         <input type="submit" class="btn btn-primary btn-block" name="submit" value="Login">
       </div>
     </div>
+    <center>
+    <div class="row form-group justify-content-center">
+      <!-- <center> -->
+      <div class="col-12 col-md-4">
+        <!-- <center> -->
+        <a href="{% url 'register:forgot_password' %}" class="btn btn-primary btn-block">Forgot Password?</a>
+      <!-- </center> -->
+      </div>
+    <!-- </center> -->
+    </div>
+  </center>
   </div>
 </form>
+
 <script type="text/javascript" src="{% static 'js/update_theme_register.js' %}"></script>
 {% endblock %}

@@ -1,8 +1,9 @@
 # from django.http import request
+from django.http.response import HttpResponse
 from django.shortcuts import render, redirect
 from . import forms
 from django.urls import reverse
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, get_user_model, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth.models import User
@@ -14,7 +15,7 @@ from django.utils.encoding import force_bytes, force_text, DjangoUnicodeDecodeEr
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.contrib.sites.shortcuts import get_current_site
 
-from .utils import token_generator
+from .utils import token_generator, forgot_password_token
 
 def home_page(request):
     return render(request, 'register/home.html')
@@ -38,18 +39,19 @@ def register(request):
             print(user.last_name)
             print(user.first_name)
             user.set_password(password1)
-            # Set is_active to true since after clicking the activation link, is_active is not changing to True from False
-            user.is_active = True
-            # user.is_active = False
+            user.is_active = False
             user.save()
             # encoding user id to send over the network
 
             uidb64 = urlsafe_base64_encode(force_bytes(user.pk))
-            domain = get_current_site(request).domain
+            # Use the code below to get domain name
+            # domain = get_current_site(request).domain
+            # use the code below while running on local server since the above code is not changing is_active to True
+            domain='127.0.0.1:8000'
             link = reverse('register:activate', kwargs={'uidb64':uidb64, 'token':token_generator.make_token(user)})
 
             activate_url = 'http://'+domain+link
-
+            print(activate_url)
             email_subject = 'Activate your account'
             email_body = 'Hi '+user.username+' Please use this link to verify your account.\n'+activate_url
 
@@ -133,12 +135,118 @@ def user_login(request):
         return render(request, "register/login.html")
 
 
-# def forgot_password(request):
-#     if request.method == 'POST':
-#         username = request.POST['username']
-#         user = User.objects.get(pk=id)
-#         if user:
+def forgot_password(request):
+    User=get_user_model()
+    print("Not post")
+    if request.method == 'POST':
+        username = request.POST['username']
+        try:
+            user=User.objects.get(username=username)
+        except User.DoesNotExist:
+            messages.warning(request,'No user found with username: '+username)
+            return render(request, 'register/forgot_password.html', {'error': 'No user found with username: '+username})
+        print(token_generator.make_token(user))
+        print("yes")
+        uidb64=urlsafe_base64_encode(force_bytes(user.pk))
+        # Use the code below to get domain name
+        # domain = get_current_site(request).domain
+        # use the code below while running on local server since the above code is not changing is_active to True
+        domain='127.0.0.1:8000'
+        link= reverse('register:reset_password', kwargs={'uidb64':uidb64, 'token':forgot_password_token.make_token(user)})
+        activate_url = 'http://'+domain+link
+        email_subject = 'Reset your account password'
+        email_body = 'Hi '+user.username+' Please use this link to verify your account.\n'+activate_url
+        email= EmailMessage(
+                    email_subject,
+                    email_body,
+                    'testexpenses724@gmail.com',
+                    [user.email],
+                    )
+        email.send(fail_silently=False)
+        messages.success(request, 'Check your inbox for Reset Password Link!')
+        return render(request, 'register/forgot_password.html', context={'email': user.email})
+    else:
+        return render(request, 'register/forgot_password.html')
+
+def reset_password1(request, uidb64, token):
+    return render(request, 'register/resetpassword.html')
                 
+
+# def forgot_password1(request):
+# 	User = get_user_model()
+# 	print("Not Post")
+# 	if request.method == 'POST':
+#         # username = request.POST['username']
+# 		username = request.POST['username']
+#         # username=str(request.POST.get('username')).lower()
+# 		# if ('@iitkgp.ac.in' in username) or ("@kgpian.iitkgp.ac.in" in username):
+# 		# 	username = username.split("@")[0]
+# 		try:
+# 			user = User.objects.get(username=username)
+# 		except User.DoesNotExist:
+#                         return render(request, 'register/forgot_password.html', {'error': 'No user found with username: '+username})
+
+# 			# messages.warning(request,'No user found with username: '+username})
+# 		print(token_generator.make_token(user))
+# 		print("yes")
+# 		current_site = get_current_site(request)
+# 		mail_subject = 'Reset Password'
+#         email_body="Hi "+user.username+' Please click on this click to reset password.\n' +activate
+		
+			
+#         uid=urlsafe_base64_encode(force_bytes(user.pk))
+#         token=forgot_password_token.make_token(user)
+	
+# 		email = EmailMessage(
+# 			mail_subject,email_body,'testexpenses724@gmail.com', to=[user.email]
+# 		)
+# 		email.send(fail_silently=True)
+# 		print("email sent")
+# 		return render(request, 'register/resetpassword.html', context={'email': user.email})
+# 	else:
+# 		return render(request, 'register/forgot_password.html')
+
+
+def reset_password(request, uidb64, token):
+	User = get_user_model()
+	try:
+		uid = force_text(urlsafe_base64_decode(uidb64))
+		user = User.objects.get(pk=uid)
+	except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+		user = None
+	if user is not None:
+		username = user.username
+		print("Reset Password")
+		return render(request, 'register/resetpassword2.html')
+	else:
+		messages.warning(request, 'Password reset link is either invalid or you already changed your password using this link. Try creating it again')
+		return render(request, 'register/forgot_password.html')
+
+
+def reset_password_done(request):
+	print("Reset Password DOne")
+	User = get_user_model()
+	if request.method == 'POST':
+		print("entered")
+		username = request.POST['username']
+		password1 = request.POST['password1']
+		password2 = request.POST['password2']
+		if password1 == password2:
+			user = User.objects.get(username=username)
+			user.set_password(password1)
+			print("Password Done!!!! #########################################################")
+			user.save()
+			# return redirect('register:login')
+			messages.success(request, 'Successfully resetted Password! Go to Login Page')
+			return render(request, 'register/resetpassword.html')
+		else:
+			messages.warning(request, 'The passwords do not match')
+			return render(request, 'register/resetpassword.html',
+						  {'username': username, 'error': "The passwords do not match."})
+	else:
+		print("Wrong place")
+		messages.warning(request, 'Some Error')
+		return redirect('register:forgot_password')
 
 @login_required
 def user_logout(request):
