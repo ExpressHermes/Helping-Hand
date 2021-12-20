@@ -114,7 +114,7 @@ def user_login(request):
                 if not user.is_active:
                     messages.warning(request, 'You have not activated your account, activate using the link sent to your mail.')
                     return render(request, 'register/login.html', {'error': 'You have not activated your account, activate using the link sent to your mail.'})
-                if user.check_password(password):
+                if not user.check_password(password):
                     messages.warning(request, 'Incorrect Password')
                     return render(request, 'register/login.html', {'error':'Incorrect Password'})
             except:
