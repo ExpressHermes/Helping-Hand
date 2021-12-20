@@ -12,15 +12,6 @@
     </button>
   </div>
   {% endif %}
-  <!-- {% for error in errors%}
-  {% if error %}
-  <div class="alert alert-danger" style="margin-bottom: 0px;padding-top: 5px;padding-bottom: 5px;font-size: 0.89rem;">
-    {{user_form.errors}}
-      <strong>{{ error|escape }}</strong>
-  </div>
-  {% endif %}
-  {% endfor %} -->
-  
   <div class="registerForm">
     <div class="row text-center">
       <div class="col-12">
@@ -28,17 +19,8 @@
       </div>
     </div>
     <hr class="hrLine" />
-    <!-- {% for field in user_form %}
-    <div class="row form-group justify-content-center">
-      <div class="col-12 col-md-4">
-        <label for="email"> {{ field.label }} </label>
-        {{ field }}
-      </div>
-    </div>
-    {% endfor %} -->
     {% csrf_token %}
     <div class="row form-group justify-content-center"> 
-        <!-- {{user_form|crispy}} -->
         <div class="col-12 col-md-4">
           <div class="form-group">
             <strong><label for="username" style="font-size: 1.25rem;">Username<strong style="color:red;">*</strong></label></strong>
