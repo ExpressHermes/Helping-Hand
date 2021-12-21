@@ -169,4 +169,5 @@ EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 
 
 
+
 CRISPY_TEMPLATE_PACK = "bootstrap4"
