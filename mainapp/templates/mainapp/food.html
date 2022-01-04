@@ -28,7 +28,7 @@
 <div class="mt-5 container">
   <div class="row justify-content-between">
     <div class="col-auto">
-        <h2 class="eventsInfo"> Upcoming Events </h2>
+        <h2 class="eventsInfo"> Upcoming Events: Food </h2>
     </div>
     <div class="col-auto float-right">
       <button type="button" class="btn btn-primary" id="map-toggler" name="button">Hide Map</button>
@@ -38,7 +38,7 @@
   <div class="row">
     <div class="col-lg-12 d-flex justify-content-center">
       <ul id="portfolio-flters" class="list-group list-group-horizontal">
-        <li class="list-group-item" data-filter=".filter-food"><a href="{% url 'mainapp:food' %}">Food</a></li>
+        <li class="list-group-item" data-filter="*" class="filter-active"><a href="{% url 'mainapp:home_page' %}">All</a></li>
         <li class="list-group-item" data-filter=".filter-clothes"><a href="{% url 'mainapp:clothes' %}">Clothes</a></li>
         <li class="list-group-item" data-filter=".filter-medical"><a href="{% url 'mainapp:medical' %}">Medical</a></li>
         <li class="list-group-item" data-filter=".filter-others"><a href="{% url 'mainapp:others' %}">Others</a></li>
@@ -47,6 +47,7 @@
   </div>
     <div class="row portfolio-container">
     {% for event in events %}
+    {% if 'food' == event.type_of_project  %}
     <div class="pt-3 col-12 col-md-6 col-lg-4 portfolio-item ">
       <div class="card event-card eventBlock">
         <div class="card-header cardHeader">
@@ -85,6 +86,7 @@
         </div>
       </div>
     </div>
+    {% endif %}
     {% endfor %}
   </div>
 </div>
