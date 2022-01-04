@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class Event(models.Model):
+    types = [('food','food'), ('clothes','clothes'), ('medical','medical'), ('others','others')]
+    type_of_project = models.CharField(max_length=30, default='food', choices = types)
     event_organizer = models.CharField(max_length=100)
     event_name = models.CharField(max_length=100)
     event_date = models.DateField()
