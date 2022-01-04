@@ -5,14 +5,14 @@ var eventBlock = document.getElementsByClassName("eventBlock");
 var cardHeader = document.getElementsByClassName("cardHeader");
 var cardBody = document.getElementsByClassName("cardBody");
 var eventsInfo = document.getElementsByClassName("eventsInfo");
-var changeThemeBtn = document.getElementById("changeThemeBtn");
 var notInterestedBtn = document.getElementsByClassName("notInterestedBtn");
 
 const changeThemeToDark = () => {
     element.classList.toggle("dark-mode");
     navbar.classList.add("navbar-border");
     hrLine.classList.add("hrLine");
-    
+    document.getElementById("chk").checked = false;
+
     for (var i = 0; i < eventBlock.length; i++) {
         eventBlock[i].classList.add("darkEventBlock");
         cardBody[i].classList.add("cardBorder");
@@ -24,7 +24,6 @@ const changeThemeToDark = () => {
     for (var i = 0; i < notInterestedBtn.length; i++) {
         notInterestedBtn[i].classList.add("notInterestedBtnDark");
     }
-    changeThemeBtn.innerText = "Light Mode"
     localStorage.setItem("currentTheme", "dark"); // save theme to local storage
 }
 
@@ -32,6 +31,8 @@ const changeThemeToLight = () => {
     element.classList.toggle("dark-mode");
     navbar.classList.remove("navbar-border");
     hrLine.classList.remove("hrLine");
+    document.getElementById("chk").checked = true;
+
     for (var i = 0; i < eventBlock.length; i++) {
         eventBlock[i].classList.remove("darkEventBlock");
         cardBody[i].classList.remove("cardBorder");
@@ -43,7 +44,6 @@ const changeThemeToLight = () => {
     for (var i = 0; i < notInterestedBtn.length; i++) {
         notInterestedBtn[i].classList.remove("notInterestedBtnDark");
     }
-    changeThemeBtn.innerText = "Dark Mode"
     localStorage.setItem("currentTheme", 'light');
 }
 
@@ -63,6 +63,8 @@ window.addEventListener('load', (event) => {
         element.classList.add("dark-mode");
         navbar.classList.add("navbar-border");
         hrLine.classList.add("hrLine");
+        document.getElementById("chk").checked = false;
+
         for (var i = 0; i < eventBlock.length; i++) {
             eventBlock[i].classList.add("darkEventBlock");
             cardBody[i].classList.add("cardBorder");
@@ -74,11 +76,12 @@ window.addEventListener('load', (event) => {
         for (var i = 0; i < notInterestedBtn.length; i++) {
             notInterestedBtn[i].classList.add("notInterestedBtnDark");
         }
-        changeThemeBtn.innerText = "Light Mode"
     } else {
         element.classList.remove("dark-mode");
         navbar.classList.remove("navbar-border");
         hrLine.classList.remove("hrLine");
+        document.getElementById("chk").checked = true;
+
         for (var i = 0; i < eventBlock.length; i++) {
             eventBlock[i].classList.remove("darkEventBlock");
             cardBody[i].classList.remove("cardBorder");
@@ -90,7 +93,6 @@ window.addEventListener('load', (event) => {
         for (var i = 0; i < notInterestedBtn.length; i++) {
             notInterestedBtn[i].classList.remove("notInterestedBtnDark");
         }
-        changeThemeBtn.innerText = "Dark Mode"
     }
 });
 
