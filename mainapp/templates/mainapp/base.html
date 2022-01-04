@@ -6,36 +6,41 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
   <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/v1.10.0/mapbox-gl.css" rel="stylesheet" />
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
   <link rel="stylesheet" type="text/css" href="{% static 'css/master.css' %}?rand=13062020" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <title>Helping Hand</title>
+  <meta name="title" content="Helping Hand">
+  <meta name="description"
+    content="A social community platform for charity events organizers to connect and collaborate with each other">
 
-    <title>Helping Hand</title>
-    <meta name="title" content="Helping Hand">
-    <meta name="description" content="A social community platform for charity events organizers to connect and collaborate with each other">
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://helpinghand.pythonanywhere.com/">
+  <meta property="og:title" content="Helping Hand">
+  <meta property="og:description"
+    content="A social community platform for charity events organizers to connect and collaborate with each other">
+  <meta property="og:image" content="">
 
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://helpinghand.pythonanywhere.com/">
-    <meta property="og:title" content="Helping Hand">
-    <meta property="og:description" content="A social community platform for charity events organizers to connect and collaborate with each other">
-    <meta property="og:image" content="">
-
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://helpinghand.pythonanywhere.com/">
-    <meta property="twitter:title" content="Helping Hand">
-    <meta property="twitter:description" content="A social community platform for charity events organizers to connect and collaborate with each other">
-    <meta property="twitter:image" content="">
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://helpinghand.pythonanywhere.com/">
+  <meta property="twitter:title" content="Helping Hand">
+  <meta property="twitter:description"
+    content="A social community platform for charity events organizers to connect and collaborate with each other">
+  <meta property="twitter:image" content="">
 </head>
 
 <body>
 
   <nav class="navbar navbar-expand-md navbar-dark bg-dark" id="navbar">
     <a class="navbar-brand" href="{% url 'mainapp:home_page' %}">Helping Hand</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <button class="btn btn-warning" id="changeThemeBtn" onclick="changeTheme()">Dark Mode</i></button>
+
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
@@ -43,7 +48,7 @@
         </li>
         {% if user.is_authenticated %}
         <li class="nav-item">
-          <a class="nav-link" href="#">{{ user.first_name  }}</a>
+          <a class="nav-link" href="#">{{ user.first_name }}</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="{% url 'register:logout' %}">Logout</a>
@@ -56,6 +61,14 @@
           <a class="nav-link" href="{% url 'register:register' %}">Register</a>
         </li>
         {% endif %}
+        <div id="chkDiv">
+          <input type="checkbox" class="checkbox" onclick="changeTheme()" id="chk" />
+          <label class="label" for="chk">
+            <i class="fa fa-moon-o"></i>
+            <i class="fa fa-sun-o"></i>
+            <div class="ball"></div>
+          </label>
+        </div>
       </ul>
     </div>
   </nav>
@@ -66,7 +79,7 @@
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
-     </div>
+    </div>
     {% endif %}
     {% block content %}
     {% endblock content %}

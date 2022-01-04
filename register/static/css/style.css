@@ -8,19 +8,24 @@ body {
 }
 
 .dark-mode {
-  background-color: #141414;
+  background-color: #333333;
   color: white;
 }
 
 .formBlock {
-  background-color: #000000;
+  background-color: #262626;
   border: 2px solid rgb(30, 137, 207);
   border-top: 8px solid rgb(30, 137, 207);
   border-radius: 10px;
-  color: #00FFFF;
+  color: #ffffff;
   padding-top: 10px;
 }
 
 .hrLineDark {
   background-color: rgb(30, 137, 207);
+}
+
+.navbar-border {
+  border-bottom: 2px solid rgb(30, 137, 207);
+  background-color: lightgrey;
 }
