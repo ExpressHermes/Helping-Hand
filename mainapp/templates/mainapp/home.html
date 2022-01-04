@@ -38,16 +38,18 @@
   <div class="row">
     <div class="col-lg-12 d-flex justify-content-center">
       <ul id="portfolio-flters" class="list-group list-group-horizontal">
-        <li class="list-group-item" data-filter=".filter-food"><a href="{% url 'mainapp:food' %}">Food</a></li>
-        <li class="list-group-item" data-filter=".filter-clothes"><a href="{% url 'mainapp:clothes' %}">Clothes</a></li>
-        <li class="list-group-item" data-filter=".filter-medical"><a href="{% url 'mainapp:medical' %}">Medical</a></li>
-        <li class="list-group-item" data-filter=".filter-others"><a href="{% url 'mainapp:others' %}">Others</a></li>
+        <li class="list-group-item" data-filter="*" class="active" onClick="setCards('all')">All</li>
+        <li class="list-group-item" data-filter=".food" onClick="setCards('food')">Food</li>
+        <li class="list-group-item" data-filter=".clothes" onClick="setCards('clothes')">Clothes</li>
+        <li class="list-group-item" data-filter=".medical" onClick="setCards('medical')">Medical</li>
+        <li class="list-group-item" data-filter=".others" onClick="setCards('others')">Others</li>
       </ul>
     </div>
   </div>
     <div class="row portfolio-container">
     {% for event in events %}
     <div class="pt-3 col-12 col-md-6 col-lg-4 portfolio-item ">
+      <p id="eventType" style="display: none">{{event.type_of_project}}</p>
       <div class="card event-card eventBlock">
         <div class="card-header cardHeader">
           <h3> {{ event.event_name }} </h3>
@@ -57,7 +59,7 @@
           <div class="row justify-content-around">
             <div class="col-6">
               <h5> Items </h5>
-              <p class="eventsInfo"> {{ event.event_type }} </p>
+              <p class="eventsInfo">{{ event.event_type }}</p>
             </div>
             <div class="col-6">
               <h5> Place </h5>
@@ -248,8 +250,23 @@
         .setHTML('<h4>' + marker.properties.title + '</h4><p> by ' + marker.properties.description + '</p>'))
       .addTo(map);
   });
+
 </script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
 <script type="text/javascript" src="{% static 'js/update_theme.js' %}"></script>
+
+<script>
+  const cardsList = Array.from(document.querySelector(".portfolio-container").children);
+  const setCards = category => {
+    cardsList.map(card => {
+      const cardsCategory = card.querySelector("#eventType").textContent;
+      if(cardsCategory ===  category || category === "all")
+        card.style.display = "block";
+      else
+        card.style.display = "none";
+    });
+  };
+</script>
+
 {% endblock content %}
 
